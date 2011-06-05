@@ -1,0 +1,33 @@
+<html>
+
+    <head>
+    <meta charset="utf-8" />
+    <title>JSONP getJSON Jquery cross domain example</title>
+
+	<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+
+<script>
+
+
+$(document).ready(function() {
+
+$.getJSON("http://ghronda.in:8000/tags/dusual/",
+		function(data){
+            $.getElementById('1').htmlText(data);
+		  });
+
+
+});
+</script>
+
+</head>
+
+<body>
+
+
+<p id=1></p>
+
+
+</body>
+</html>
+
