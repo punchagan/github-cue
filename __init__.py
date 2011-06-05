@@ -50,29 +50,41 @@ def taggify(text):
 def project(repo):
     return "%s/%s" %(repo.owner, repo.name)
 
-def searchGitHub(my_langs, my_tags, n_langs=3, n_tags=12):
-    """Search GitHub and return suggestions"""
-    # Randomly picking an arbit number of languages and tags.
-    # The API rate limit...
-    langs = random.sample(my_langs, min(n_langs, len(my_langs)))
-    tags = random.sample(my_tags, min(n_tags, len(my_tags)))
+def get_weights(langs, all_langs):
+    m, n = len(langs), len(all_langs)
+    t = sum(my_langs.values())
+    weights = []
+    for lang in langs:
+        count, = [my_langs[l] for l in my_langs if l == lang] # count of lang
+        weights.append((float(count)*n)/(t*m))
 
+    return weights
+                 
+def searchGitHub(langs, tags, weights):
+    """Search GitHub and return suggestions"""
     found = []
+    if None in tags:
+        tags.remove(None)
 
     for i, lang in enumerate(langs):
         for j, tag in enumerate(tags):
-            query, = tag.keys()
-            wt = (sum([my_langs[l] for l in my_langs if l == lang])*15)/\
-                 sum(my_langs.values())
+            query = tag.string
+            wt = weights[i]
             print "Searching %s in %s" %(query, lang)
             found.extend(gh.repos.search(query, language=lang \
-                                         if ' ' not in lang else ' ')[:wt])
+                                         if ' ' not in lang else ' ')[:int(wt*18)])
 
-    suggest = [r for r in found if project(r)
-               not in [project(p) for p in my_repos]]
-
+    suggest = {r for r in found if project(r)
+               not in [project(p) for p in my_repos]}
     return suggest
 
+
+def pick_tag(repo):
+    if repo['tags']:
+        m = max([t.rating for t in repo['tags']])
+        return random.sample([t for t in repo['tags'] if t.rating == m], 1)[0]
+    else:
+        return 
 
 if __name__ == '__main__':
     if len(sys.argv)>1:
@@ -87,13 +99,15 @@ if __name__ == '__main__':
     print "Done!"
 
     print "Parsing Repos, for tags, langs, etc..."
-    my_repos_parsed = parse_repos(my_repos)
-    my_tags = [{j.string:j.rating} for r in my_repos_parsed \
-               for j in r['tags'] if j.rating > 0.05]
-    my_langs = [r['language'] for r in my_repos_parsed]
+    my_langs = map(get_language, my_repos)
     my_langs = dict(zip(set(my_langs), [my_langs.count(l) for l in set(my_langs)]))
+    # Randomly picking an arbit number of languages and tags.
+    # The API rate limit...
+    langs = random.sample(my_langs, min(3, len(my_langs)))
+    repos = parse_repos(random.sample(my_repos, min(12, len(my_repos))))
+    tags = set(map(pick_tag, repos))
+    weights = get_weights(langs, my_langs)
     print "Done!"
-
-    suggest = searchGitHub(my_langs, my_tags)
-
-    print [p.url for p in random.sample(suggest, 9)]
+    
+    suggest = searchGitHub(langs, tags, weights)
+    print [p.url for p in random.sample(suggest, min(9, len(suggest)))]
