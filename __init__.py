@@ -110,4 +110,6 @@ if __name__ == '__main__':
     print "Done!"
     
     suggest = searchGitHub(langs, tags, weights)
+
+    print "Found %s relevant repos" % len(suggest)
     print [p.url for p in random.sample(suggest, min(9, len(suggest)))]
