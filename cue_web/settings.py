@@ -6,6 +6,8 @@ from os import sep
 from os.path import abspath, dirname, join
 full_path = lambda d: join(abspath(dirname(__file__)), d)
 sys.path.append( full_path( '../' ) )
+sys.path.append (full_path('../cue_lib'))
+
 
 
 DEBUG = True

@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'cue_web.views.home', name='home'),
     # url(r'^cue_web/', include('cue_web.foo.urls')),
+    url(r'^tags/(?P<username>[\w]+)/$', 'cue_web.tag.views.repo_tags', name='tags'),
+                       
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -28,13 +28,20 @@ class AllowJSONPCallback(object):
     def __call__(self, *args, **kwargs):
         request = args[0]
         callback = request.GET.get('callback')
-        # if callback parameter is present,                                                                                                      
+        # if callback parameter ispresent,                                                                                                      
         # this is going to be a jsonp callback.                                                                                                  
         if callback:
+            try:
+                response = self.f(*args, **kwargs)
+	    except:
+                response = HttpResponse('error', status=500)
+            if response.status_code / 100 != 2:
+                response.content = 'error'
+
             if response.content[0] not in ['"', '[', '{'] \
                     or response.content[-1] not in ['"', ']', '}']:
                 response.content = '"%s"' % response.content
-            response.content = "%s(%s)" % (callback, response.content)
+            response.content = "%s" % (response.content)
             response['Content-Type'] = 'application/javascript'
         else:
             response = self.f(*args, **kwargs)
