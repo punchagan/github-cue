@@ -40,9 +40,10 @@ class AllowJSONPCallback(object):
 
             if response.content[0] not in ['"', '[', '{'] \
                     or response.content[-1] not in ['"', ']', '}']:
-                response.content = '"%s"' % response.content
-            response.content = "%s" % (response.content)
+                response.content =  response.content
+            response.content = "%s(%s)" % (callback, response.content)
             response['Content-Type'] = 'application/javascript'
+            print response.content
         else:
             response = self.f(*args, **kwargs)
         return response

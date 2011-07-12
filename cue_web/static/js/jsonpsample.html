@@ -25,8 +25,8 @@ $(document).ready(function() {
        url: "http://127.0.0.1:8000/tags/punchagan/",
        dataType: "jsonp",
        error:   function(){$('#item').html('Error fetching data')},
-       success: function(data){alert("success");},
-       complete: function(data){alert("complete");}
+       success: function(data){response_list(data);},
+       
          });
 });
 
