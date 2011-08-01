@@ -95,21 +95,23 @@ var suggestions = function() {
     if (count == 15) {
         count=0;
         interestIndices = random_nums(10, interestingRepos.length);
-        // octo = document.getElementsByClassName("octofication")[0];
+        // FIXME: document is WRONG!
+        // alert(document.URL);
         var suggestion = document.createElement("div");
-        suggestion.className = "details";
+        suggestion.className = "repos";
+        suggestion.id = "details";
         for (repo in interestIndices) {
             var content = document.createElement("div");
             content.className = "message";
             content.textContent = interestingRepos[interestIndices[repo]].name;
-            suggestion.appendchild(content);
+            suggestion.appendChild(content);
             alert(interestingRepos[interestIndices[repo]].name, 
                   interestingRepos[interestIndices[repo]].url);
         }
         // Create the overlay 
         // suggestion.insertBefore(octo);
-        var repo = document.getElementById("your_repos");
-        suggestion.insertBefore(repo);
+        var yrepo = document.getElementById("your_repos");
+        yrepo.insertAdjacentElement("beforeBegin", suggestion);
         alert("done");
     }
 }
