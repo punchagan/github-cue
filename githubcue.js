@@ -94,11 +94,8 @@ var getRepos = function(callback) {
 
 var suggestions = function() {
     if (count == 15) {
-        console.log(interestingRepos);
         interestIndices = random_nums(10, interestingRepos.length);
-        console.log(interestIndices, "<-- interestIndices");
         for (repo in interestIndices) {
-            console.log(interestIndices[repo])
             console.log(interestingRepos[interestIndices[repo]].name, 
                         interestingRepos[interestIndices[repo]].url)
         }
