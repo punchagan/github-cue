@@ -1,0 +1,42 @@
+<!--
+An option page
+-->
+
+<title>GitHub cue</title>
+<style>
+  /* Clone the look and feel of "chrome://" pages. */
+  body {
+    margin: 10px;
+    font: 84% Arial, sans-serif
+  }
+
+  h1 { font-size: 156% }
+
+  h1 img {
+    margin: 1px 5px 0 1px;
+    vertical-align: middle
+  }
+
+  h2 {
+    border-top: 1px solid #9cc2ef;
+    background-color: #ebeff9;
+    padding: 3px 5px;
+    font-size: 100%
+  }
+</style>
+<script>
+    onload = function() {
+        options.login.value = localStorage.login; // The user's login.
+        options.login.onchange = function() {
+            localStorage.login = options.login.value;
+        };
+    };
+</script>
+<h1>
+  <img src="" alt="">
+  GitHub cue
+</h1>
+<h2>Options</h2>
+<form id="options">
+  GitHub Username: <input type="text" name="login" size="15"/> <br />
+</form>

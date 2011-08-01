@@ -3,5 +3,10 @@
 <script src="githubcue.js">
 </script>
 <script>
+if (!localStorage.isInitialized) {
+    localStorage.isInitialized = true; 
+    localStorage.login = ''; 
+    chrome.tabs.create({url: 'options.html'}); // Open options after install
+}
 run();
 </script>

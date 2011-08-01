@@ -1,4 +1,4 @@
-g{
+{
   "name": "GitHub Suggestions",
   "version": "0.0",
   "description": "Suggestions for GitHub.",
@@ -9,5 +9,6 @@ g{
   "icons": {
     "48" : "sample-48.png"
   },
-  "background_page" : "gitcue.html"
+  "background_page" : "gitcue.html", 
+  "options_page" : "options.html"
 }

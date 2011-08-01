@@ -1,4 +1,4 @@
-var username="punchagan";
+var username;
 var userData;
 // http://stackoverflow.com/questions/1208067/wheres-my-json-data-in-my-incoming-django-request
 var tags;
@@ -23,6 +23,7 @@ var getTags = function() {
 }
 
 var run = function() {
+    username = localStorage.login;
     var gh_user = gh.user(username);
 
     var watch = gh_user.watching(function(data) {
