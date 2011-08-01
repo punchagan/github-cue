@@ -48,7 +48,6 @@ var run = function() {
             }
         })
         userData = {languages: languages, descriptions: descriptions};
-        console.log("Obtained languages and descriptions");
         getTags();
     });
 };
@@ -96,8 +95,10 @@ var suggestions = function() {
     if (count == 15) {
         interestIndices = random_nums(10, interestingRepos.length);
         for (repo in interestIndices) {
-            console.log(interestingRepos[interestIndices[repo]].name, 
-                        interestingRepos[interestIndices[repo]].url)
+            alert(interestingRepos[interestIndices[repo]].name, 
+                  interestingRepos[interestIndices[repo]].url)
         }
+        // Create the overlay 
     }
 }
+
