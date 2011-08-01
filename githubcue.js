@@ -93,10 +93,11 @@ var getRepos = function(callback) {
 
 var suggestions = function() {
     if (count == 15) {
+        count=0;
         interestIndices = random_nums(10, interestingRepos.length);
         for (repo in interestIndices) {
             alert(interestingRepos[interestIndices[repo]].name, 
-                  interestingRepos[interestIndices[repo]].url)
+                  interestingRepos[interestIndices[repo]].url);
         }
         // Create the overlay 
     }
