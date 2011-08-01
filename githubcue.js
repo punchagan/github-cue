@@ -95,11 +95,20 @@ var suggestions = function() {
     if (count == 15) {
         count=0;
         interestIndices = random_nums(10, interestingRepos.length);
+        octo = document.getElementsByClassName("octofication")[0];
+        suggestion = document.createElement("div");
+        suggestion.className = "octofication";
         for (repo in interestIndices) {
-            alert(interestingRepos[interestIndices[repo]].name, 
-                  interestingRepos[interestIndices[repo]].url);
+            content = document.createElement("div");
+            content.className = "message";
+            heading = document.createElement("h3");
+            heading.textContent = "<a href=\"interestingRepos[interestIndices[repo]].url\">\"interestingRepos[interestIndices[repo]].name</a>";
+            octo.appendchild(content);            
+            // alert(interestingRepos[interestIndices[repo]].name, 
+            //       interestingRepos[interestIndices[repo]].url);
         }
         // Create the overlay 
+        // suggestion.insertBefore(octo);
     }
 }
 
