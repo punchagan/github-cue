@@ -1,0 +1,13 @@
+g{
+  "name": "GitHub Suggestions",
+  "version": "0.0",
+  "description": "Suggestions for GitHub.",
+  "permissions": [
+    "https://github.com/api/v2/json/*",
+    "http://search.yahooapis.com/ContentAnalysisService/V1/termExtraction/*"
+  ],
+  "icons": {
+    "48" : "sample-48.png"
+  },
+  "background_page" : "gitcue.html"
+}
