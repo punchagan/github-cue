@@ -1,0 +1,41 @@
+#+TITLE: GitHub-Cue README
+#+OPTIONS: toc:nil num:nil 
+
+GitHub-Cue is a Chrome extension that gives users suggestions or
+recommendations of interesting repositories, based on the repositories
+that the user is already watching. 
+
+Another, chrome extension for "the geeks whose primary Social Network
+is GitHub".  
+
+
+* Usage
+
+  1. Install GitHub-Cue.
+
+     1. You can get it from the [store]  OR 
+
+     2. Install it from the [[https://github.com/punchagan/github-cue][git repository]].  Follow the steps described
+        in #4 of the *Create and load and extension* [[http://code.google.com/chrome/extensions/getstarted.html][section]]
+       
+  2. Save your GitHub username in the options page. 
+
+  3. Visit https://github.com to see the recommended repositories.  It
+     on the right hand column above the "Your Repositories" box.
+
+* How it works
+
+  1. Scrapes all the descriptions of the repositories being watched
+     by the user.
+
+  2. Key terms are extracted from this description text using the
+     [[http://developer.yahoo.com/search/content/V1/termExtraction.html][Yahoo Term Extractor]].
+
+  3. A list of languages is obtained, based on the languages of the
+     repositories, the user if watching.
+
+  4. GitHub searches are performed for a combination of 3 randomly
+     chosen languages and 5 random key terms.
+
+  5. 10 random repositories out of all these, are shown. 
+
