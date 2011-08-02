@@ -72,8 +72,6 @@ var getRepos = function(callback) {
     
     var langIndices = random_nums(3, Object.keys(userData.languages).length);
     var descripIndices = random_nums(5, tags.length);
-    console.log(langIndices, "<-- langIndices");
-    console.log(descripIndices, "<-- descripIndices");
     for (i in langIndices) {
         for (j in descripIndices) {
             gh.repo.search(tags[descripIndices[j]], 
