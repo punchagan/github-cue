@@ -20,9 +20,12 @@ chrome.extension.sendRequest({ask: "interesting"}, function(response) {
     suggestion.className = "repos";
     suggestion.id = "details";
 
-    var heading = document.createElement("h3");
+    var heading = document.createElement("h2");
+    var top_bar = document.createElement("div");
+    top_bar.className = "top-bar";
     heading.textContent = "Interesting Repositories";
-    suggestion.appendChild(heading);
+    top_bar.appendChild(heading);
+    suggestion.appendChild(top_bar);
     
     var yrepo = document.getElementById("your_repos");
     yrepo.insertAdjacentElement("beforeBegin", suggestion);
