@@ -26,19 +26,22 @@ chrome.extension.sendRequest({ask: "interesting"}, function(response) {
     heading.textContent = "Interesting Repositories";
     top_bar.appendChild(heading);
     suggestion.appendChild(top_bar);
+    list = document.createElement("ul");
+    list.className = "repo_list";
     
     var yrepo = document.getElementById("your_repos");
     yrepo.insertAdjacentElement("beforeBegin", suggestion);
 
     for (repo in interestIndices) {
-        var content = document.createElement("div");
-        content.className = "message";
+        var content = document.createElement("li");
+        content.className = "public source";
         var link = document.createElement("a");
         link.textContent = interestingRepos[interestIndices[repo]].name;
         link.href = interestingRepos[interestIndices[repo]].url;
         content.appendChild(link);
-        suggestion.appendChild(content);
+        list.appendChild(content);
     }
+    suggestion.appendChild(list);
 
     var yrepo = document.getElementById("your_repos");
     yrepo.insertAdjacentElement("beforeBegin", suggestion);
