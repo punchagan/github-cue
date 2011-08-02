@@ -10,16 +10,16 @@ var getTags = function() {
 
     var http = new XMLHttpRequest()
     var url = "http://search.yahooapis.com/ContentAnalysisService/V1/termExtraction";
-    var params = "appid=YahooDemo&output=json&context=" + descriptions;
-    http.open("GET", url+'?'+params, true);
-    
+    var params = "appid=YahooDemo&output=json&context=" + encodeURIComponent(descriptions);
+    http.open("POST", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
             tags = JSON.parse(http.responseText).ResultSet.Result;
             getRepos(suggestions);
         }
     }
-    http.send(null);
+    http.send(params);
 }
 
 var run = function() {
