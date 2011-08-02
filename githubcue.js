@@ -74,9 +74,9 @@ var getRepos = function(callback) {
     var descripIndices = random_nums(5, tags.length);
     for (i in langIndices) {
         for (j in descripIndices) {
-            gh.repo.search(tags[descripIndices[j]], 
-                           {"language": Object.keys(
-                               userData.languages)[langIndices[i]]}, 
+            gh.repo.search(encodeURIComponent(tags[descripIndices[j]]), 
+                           {"language": encodeURIComponent(Object.keys(
+                               userData.languages)[langIndices[i]])}, 
                            function(data) {
                                for (repo in data.repositories.slice(0, 10)) {
                                    interestingRepos.push(data.repositories[repo]);
