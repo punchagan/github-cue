@@ -100,8 +100,8 @@ chrome.extension.onRequest.addListener(
 var suggestions = function() {
     if (count == 15) {
         count=0;
-        chrome.tabs.executeScript(null, {file: "github.js"}, function(){
-            chrome.tabs.executeScript(null, {file: "suggestions.js"});
+        chrome.tabs.executeScript(gittab, {file: "github.js"}, function(){
+            chrome.tabs.executeScript(gittab, {file: "suggestions.js"});
         });
     }
 }

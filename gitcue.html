@@ -9,9 +9,12 @@ if (!localStorage.isInitialized) {
     chrome.tabs.create({url: 'options.html'}); // after install, show options page. 
     }
 
+var gittab;
+
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     if (tab.url == "https://github.com/") {
         if(changeInfo.status == "loading"){
+            gittab = tabId;
             run();
         }
     }
