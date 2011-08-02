@@ -90,29 +90,21 @@ var getRepos = function(callback) {
     }
 }
 
+chrome.extension.onRequest.addListener(
+    function(request, sender, sendResponse) {
+        if (request.ask == "interesting")
+            sendResponse({irepos: interestingRepos});
+        else
+            sendResponse({}); // snub them.
+    }
+);
 
 var suggestions = function() {
     if (count == 15) {
         count=0;
-        interestIndices = random_nums(10, interestingRepos.length);
-        // FIXME: document is WRONG!
-        // alert(document.URL);
-        var suggestion = document.createElement("div");
-        suggestion.className = "repos";
-        suggestion.id = "details";
-        for (repo in interestIndices) {
-            var content = document.createElement("div");
-            content.className = "message";
-            content.textContent = interestingRepos[interestIndices[repo]].name;
-            suggestion.appendChild(content);
-            alert(interestingRepos[interestIndices[repo]].name, 
-                  interestingRepos[interestIndices[repo]].url);
-        }
-        // Create the overlay 
-        // suggestion.insertBefore(octo);
-        var yrepo = document.getElementById("your_repos");
-        yrepo.insertAdjacentElement("beforeBegin", suggestion);
-        alert("done");
+        chrome.tabs.executeScript(null, {file: "github.js"}, function(){
+            chrome.tabs.executeScript(null, {file: "suggestions.js"});
+        });
     }
 }
 
