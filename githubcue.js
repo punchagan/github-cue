@@ -54,6 +54,9 @@ var run = function() {
 
 
 var random_nums = function(limit, num) {
+    if (limit > num) {
+        limit = num;
+    }
     var indices = [Math.floor(Math.random()*num)];
     var i = 1;
     while (i < limit){
