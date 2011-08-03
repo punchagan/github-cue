@@ -1,7 +1,7 @@
 {
-  "name": "GitHub Suggestions",
+  "name": "GitHub Cue",
   "version": "0.8",
-  "description": "Suggestions for GitHub.",
+  "description": "Recommendations on GitHub.",
   "permissions": [
     "https://github.com/*",
     "http://search.yahooapis.com/ContentAnalysisService/V1/termExtraction/*",
