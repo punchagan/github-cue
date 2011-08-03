@@ -1,6 +1,6 @@
 {
   "name": "GitHub Suggestions",
-  "version": "0.0",
+  "version": "0.8",
   "description": "Suggestions for GitHub.",
   "permissions": [
     "https://github.com/*",
