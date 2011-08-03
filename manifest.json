@@ -8,7 +8,8 @@
     "tabs"
     ],
   "icons": {
-    "48" : "sample-48.png"
+    "48" : "github-cue.png", 
+    "128" : "github-cue.png"
   },
   "background_page" : "gitcue.html", 
   "options_page" : "options.html"

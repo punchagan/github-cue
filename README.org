@@ -39,3 +39,5 @@ is GitHub".
 
   5. 10 random repositories out of all these, are shown. 
 
+* Image Credits
+  the [[http://octodex.github.com/#repo][Repo]] and the [[http://octodex.github.com/#swagtocat][Swagtocat]] by [[https://github.com/cameronmcefee][cameronmcefee]]
