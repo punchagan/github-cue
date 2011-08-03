@@ -1,6 +1,6 @@
 {
   "name": "GitHub Cue",
-  "version": "0.8",
+  "version": "0.8.1",
   "description": "Recommendations on GitHub.",
   "permissions": [
     "https://github.com/*",
