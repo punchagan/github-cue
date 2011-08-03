@@ -13,7 +13,7 @@ is GitHub".
 
   1. Install GitHub-Cue.
 
-     1. You can get it from the [store]  OR 
+     1. You can get it from the [[https://chrome.google.com/webstore/detail/cbjolnbncjhipdfjhmpnfjkkkhkbefmj][store]]  OR 
 
      2. Install it from the [[https://github.com/punchagan/github-cue][git repository]].  Follow the steps described
         in #4 of the *Create and load and extension* [[http://code.google.com/chrome/extensions/getstarted.html][section]]
