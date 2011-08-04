@@ -131,7 +131,7 @@ var uniquifyRepos = function (a, b) {
 var suggestions = function() {
     if (count == langIndices.length*descripIndices.length) {
         count=0;
-        interestingRepos=new uniquify(interestingRepos);
+        interestingRepos=new uniquifyRepos(interestingRepos, repos);
         chrome.tabs.executeScript(gittab, {file: "github.js"}, function(){
             chrome.tabs.executeScript(gittab, {file: "suggestions.js"});
         });
