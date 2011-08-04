@@ -1,5 +1,6 @@
 var username;
 var userData;
+var repos;
 // http://stackoverflow.com/questions/1208067/wheres-my-json-data-in-my-incoming-django-request
 var tags;
 var getTags = function() {
@@ -27,7 +28,7 @@ var run = function() {
     var gh_user = gh.user(username);
 
     var watch = gh_user.watching(function(data) {
-        var repos = data.repositories;
+        repos = data.repositories;
         
         var languages = {};
         var descriptions = [];
@@ -117,9 +118,20 @@ chrome.extension.onRequest.addListener(
     }
 );
 
+var uniquifyRepos = function (a, b) {
+    var unique = new Array;
+    for ( i=0; i < a.length; i++ ) {
+        if (unique.indexOf(a[i])==-1 && b.indexOf(a[i])==-1) {
+            unique.push(a[i]);
+        }
+    }
+    return unique; 
+}
+
 var suggestions = function() {
     if (count == langIndices.length*descripIndices.length) {
         count=0;
+        interestingRepos=new uniquify(interestingRepos);
         chrome.tabs.executeScript(gittab, {file: "github.js"}, function(){
             chrome.tabs.executeScript(gittab, {file: "suggestions.js"});
         });
