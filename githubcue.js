@@ -71,10 +71,13 @@ var random_nums = function(limit, num) {
 
 var interestingRepos = [];
 var count=0;
+var langIndices;
+var descripIndices; 
+
 var getRepos = function(callback) {
     
-    var langIndices = random_nums(3, Object.keys(userData.languages).length);
-    var descripIndices = random_nums(5, tags.length);
+    langIndices = random_nums(3, Object.keys(userData.languages).length);
+    descripIndices = random_nums(5, tags.length);
     for (i in langIndices) {
         for (j in descripIndices) {
             gh.repo.search(encodeURIComponent(tags[descripIndices[j]]), 
@@ -101,7 +104,7 @@ chrome.extension.onRequest.addListener(
 );
 
 var suggestions = function() {
-    if (count == 15) {
+    if (count == langIndices.length*descripIndices.length) {
         count=0;
         chrome.tabs.executeScript(gittab, {file: "github.js"}, function(){
             chrome.tabs.executeScript(gittab, {file: "suggestions.js"});
