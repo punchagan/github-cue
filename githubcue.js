@@ -80,16 +80,30 @@ var getRepos = function(callback) {
     descripIndices = random_nums(5, tags.length);
     for (i in langIndices) {
         for (j in descripIndices) {
-            gh.repo.search(encodeURIComponent(tags[descripIndices[j]]), 
-                           {"language": encodeURIComponent(Object.keys(
-                               userData.languages)[langIndices[i]])}, 
-                           function(data) {
-                               for (repo in data.repositories.slice(0, 10)) {
-                                   interestingRepos.push(data.repositories[repo]);
-                               };
-                               count++;
-                               callback();
-                           });
+            var language = Object.keys(userData.languages)[langIndices[i]];
+            var tag = tags[descripIndices[j]];
+            if (tag==undefined) {tag="github"} else {tag=encodeURIComponent(tag)};
+            if (language==undefined) {
+                gh.repo.search(tag, {},  
+                               function(data) {
+                                   for (repo in data.repositories.slice(0, 10)) {
+                                       interestingRepos.push(data.repositories[repo]);
+                                   };
+                                   count++;
+                                   callback();
+                               });
+            }
+            else {
+                gh.repo.search(tag, 
+                               {"language": encodeURIComponent(language)}, 
+                               function(data) {
+                                   for (repo in data.repositories.slice(0, 10)) {
+                                       interestingRepos.push(data.repositories[repo]);
+                                   };
+                                   count++;
+                                   callback();
+                               });
+            }
         }
     }
 }
