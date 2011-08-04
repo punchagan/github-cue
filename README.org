@@ -20,8 +20,9 @@ is GitHub".
        
   2. Save your GitHub username in the options page. 
 
-  3. Visit https://github.com to see the recommended repositories.  It
-     on the right hand column above the "Your Repositories" box.
+  3. Visit https://github.com and login to see the recommended
+     repositories.  It on the right hand column above the "Your
+     Repositories" box.
 
 * How it works
 
