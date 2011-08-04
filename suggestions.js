@@ -44,6 +44,16 @@ chrome.extension.sendRequest({ask: "interesting"}, function(response) {
         content.appendChild(link);
         list.appendChild(content);
     }
+
+    if (interestIndices.length == 0) {
+        var content = document.createElement("li");
+        content.className = "public source";
+        var link = document.createElement("a");
+        link.textContent = "Sorry! Couldn't find suggestions for you.";
+        content.appendChild(link);
+        list.appendChild(content);
+    }
+
     suggestion.appendChild(list);
 
     var yrepo = document.getElementById("your_repos");
