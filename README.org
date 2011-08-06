@@ -6,7 +6,8 @@ recommendations of interesting repositories, based on the repositories
 that the user is already watching. 
 
 Another, chrome extension for "the geeks whose primary Social Network
-is GitHub".  
+is GitHub".  This extension, obviously, is not an official GitHub
+product. 
 
 
 * Usage
