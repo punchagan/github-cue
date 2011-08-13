@@ -3,6 +3,11 @@ var userData;
 var repos;
 // http://stackoverflow.com/questions/1208067/wheres-my-json-data-in-my-incoming-django-request
 var tags;
+var interestingRepos;
+var count=0;
+var langIndices;
+var descripIndices; 
+
 var getTags = function() {
     var descriptions;
     for (i in userData.descriptions) {
@@ -70,13 +75,8 @@ var random_nums = function(limit, num) {
     return indices;
 };
 
-var interestingRepos = [];
-var count=0;
-var langIndices;
-var descripIndices; 
-
 var getRepos = function(callback) {
-    
+    interestingRepos = new Array;
     langIndices = random_nums(3, Object.keys(userData.languages).length);
     descripIndices = random_nums(5, tags.length);
     for (i in langIndices) {
