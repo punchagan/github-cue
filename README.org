@@ -9,6 +9,8 @@ Another, chrome extension for "the geeks whose primary Social Network
 is GitHub".  This extension, obviously, is not an official GitHub
 product. 
 
+If you like the extension, Flattr it! 
+[[http://flattr.com/thing/374671/GitHub-Cue][http://api.flattr.com/button/flattr-badge-large.png]]
 
 * Usage
 
