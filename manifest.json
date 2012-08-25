@@ -11,6 +11,13 @@
     "48" : "github-cue.png", 
     "128" : "github-cue.png"
   },
-  "background_page" : "gitcue.html", 
-  "options_page" : "options.html"
+  "options_page" : "options.html",
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/"],
+      "js": ["github.js", "githubcue.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background_page" : "gitcue.html"
 }

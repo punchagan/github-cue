@@ -1,22 +1,17 @@
-<script src="github.js">
-</script>
-<script src="githubcue.js">
-</script>
 <script>
 if (!localStorage.isInitialized) {
     localStorage.isInitialized = true; 
-    localStorage.login = ''; 
+    localStorage.login = '';
+    localStorage.passwd = '';
     chrome.tabs.create({url: 'options.html'}); // after install, show options page. 
     }
 
-var gittab;
+// Listen to messages from the content script
+chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse) {
+    if (request.message == "credentials")
+      sendResponse({username: localStorage.login, password: localStorage.passwd});
+  }
+);
 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-    if (tab.url == "https://github.com/") {
-        if(changeInfo.status == "loading"){
-            gittab = tabId;
-            run();
-        }
-    }
-});
 </script>
