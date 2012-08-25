@@ -11,6 +11,12 @@ product.
 
 If you like the extension, [[http://flattr.com/thing/374671/GitHub-Cue][Flattr it]]!
 
+* License
+
+  - Uses ~github.js~, which was written Michael Aufreiter and is
+    freely distributable under the MIT license.
+  - All other code is available under the MIT/GPLv3 licenses.
+
 * Usage
 
   1. Install GitHub-Cue.
@@ -19,8 +25,8 @@ If you like the extension, [[http://flattr.com/thing/374671/GitHub-Cue][Flattr i
 
      2. Install it from the [[https://github.com/punchagan/github-cue][git repository]].  Follow the steps described
         in #4 of the *Create and load and extension* [[http://code.google.com/chrome/extensions/getstarted.html][section]]
-       
-  2. Save your GitHub username in the options page. 
+
+  2. Save your GitHub username & password in the options page.
 
   3. Visit https://github.com and login to see the recommended
      repositories.  It on the right hand column above the "Your
@@ -40,7 +46,7 @@ If you like the extension, [[http://flattr.com/thing/374671/GitHub-Cue][Flattr i
   4. GitHub searches are performed for a combination of 3 randomly
      chosen languages and 5 random key terms.
 
-  5. 10 random repositories out of all these, are shown. 
+  5. 15 random repositories out of all these, are shown.
 
 * Image Credits
   the [[http://octodex.github.com/#repo][Repo]] and the [[http://octodex.github.com/#swagtocat][Swagtocat]] by [[https://github.com/cameronmcefee][cameronmcefee]]
