@@ -193,7 +193,11 @@ var showSuggestions = function(repos) {
             arrow = document.createElement("span"),
             repo = repos[indices[i]];
 
-        icon.className = "mini-icon mini-icon-public-repo";
+        if (repo.fork) {
+            icon.className = "mini-icon mini-icon-repo-forked";
+        } else {
+            icon.className = "mini-icon mini-icon-public-repo";
+        }
         link.appendChild(icon);
         owner.className = "owner";
         owner.textContent = repo.owner+"/";
