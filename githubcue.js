@@ -65,10 +65,10 @@ var insertStubHtml = function(){
 // Calls all the functions for processing and displaying ...
 var processDataAndDisplay = function( err, repos ) {
 
-    // FIXME: Does no error handling.
-    // on success err is null
-    console.log(err);
-
+    if (err) {
+        messages = document.getElementById("interest_repos");
+        messages.textContent = 'Failed to fetch interesting repos';
+    }
     var userData = parseRepoData(repos);
     getTags(userData);
 
@@ -181,8 +181,7 @@ var showSuggestions = function(repos) {
     count.textContent = "(" + indices.length + ")";
     node.getElementsByTagName("h2")[0].appendChild(count);
 
-    // FIXME: make this a hide; Also should be changed on any errors...
-    // Just dump the error message here!
+    messages.hidden = true;
     messages.textContent = '';
     for (i in indices) {
         var content = document.createElement("li"),
