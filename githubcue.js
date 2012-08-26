@@ -208,7 +208,8 @@ var showSuggestions = function(repos) {
         link.appendChild(name);
         arrow.className = "arrow";
         link.appendChild(arrow);
-        link.href = repo.url;
+        link.href = repo.url || "/"+repo.owner+"/"+repo.name;
+        link.title = repo.description;
         content.className = "public source";
         content.appendChild(link);
         repo_list.appendChild(content);

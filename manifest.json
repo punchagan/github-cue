@@ -1,6 +1,6 @@
 {
   "name": "GitHub Cue",
-  "version": "0.9.9.1",
+  "version": "0.9.9.2",
   "description": "Recommendations on GitHub.",
   "permissions": [
     "https://github.com/*",
@@ -8,7 +8,7 @@
     "tabs"
     ],
   "icons": {
-    "48" : "github-cue.png", 
+    "48" : "github-cue.png",
     "128" : "github-cue.png"
   },
   "options_page" : "options.html",
