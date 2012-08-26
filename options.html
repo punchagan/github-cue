@@ -30,10 +30,6 @@ An option page
         options.login.onchange = function() {
             localStorage.login = options.login.value;
         };
-        options.passwd.value = localStorage.passwd; // The user's passwd.
-        options.passwd.onchange = function() {
-            localStorage.passwd = options.passwd.value;
-        };
     };
 </script>
 <h1>
@@ -43,7 +39,6 @@ An option page
 <h2>Options</h2>
 <form id="options">
   GitHub Username: <input type="text" name="login" size="15"/> <br />
-  GitHub Password: <input type="password" name="passwd" size="15"/> <br />
 </form>
-Save your username & password and visit the <a href="https://github.com">GitHub
+Save your username and visit the <a href="https://github.com">GitHub
 Dashboard</a> to view your recommendations.

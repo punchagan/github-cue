@@ -23,11 +23,10 @@ var run = function() {
     insertStubHtml();
 
     // Workaround the lack of access to localStorage ...
-    chrome.extension.sendRequest({message: "credentials"}, function(response) {
+    chrome.extension.sendRequest({message: "username"}, function(response) {
 
         // Globally available
-        github = new Github({username: response.username,
-                             password: response.password});
+        github = new Github({username: '', password: ''});
         var gh_user = github.getUser(),
             watch = gh_user.userWatched(response.username, processDataAndDisplay);
         console.log('Fetching watched repos');
@@ -47,6 +46,7 @@ var insertStubHtml = function(){
     messages.id = "interesting_messages";
     // FIXME: CSS fixes
     messages.textContent = "Fetching interesting repositories. Please Wait...";
+    messages.setAttribute('style', 'margin: 1em; top: 0.5em; position: relative');
     repo_list.className = "repo_list";
     bottom_bar.className = "bottom-bar";
     heading.textContent = "Interesting Repositories ";
@@ -62,13 +62,15 @@ var insertStubHtml = function(){
 
 }
 
+var setMessage = function(text) {
+    messages = document.getElementById("interest_repos");
+    messages.textContent = text;
+}
+
 // Calls all the functions for processing and displaying ...
 var processDataAndDisplay = function( err, repos ) {
 
-    if (err) {
-        messages = document.getElementById("interest_repos");
-        messages.textContent = 'Failed to fetch interesting repos';
-    }
+    if (err) { setMessage('Failed to fetch interesting repos') };
     var userData = parseRepoData(repos);
     getTags(userData);
 
@@ -119,7 +121,7 @@ var getTags = function(userData) {
     http.open("POST", url, true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
+        if (http.readyState == 4 && http.status == 200) {
             tags = JSON.parse(http.responseText).ResultSet.Result;
             getRepos(userData);
         }
@@ -174,7 +176,7 @@ var showSuggestions = function(repos) {
         repo_list = node.getElementsByClassName("repo_list")[0];
 
     if (indices.length == 0) {
-        messages.textContent = "Sorry! Couldn't find suggestions for you.";
+        setMessage("Sorry! Couldn't find suggestions for you.");
         return;
     }
     var count = document.createElement("em");
