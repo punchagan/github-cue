@@ -2,7 +2,8 @@
 if (!localStorage.isInitialized) {
     localStorage.isInitialized = true; 
     localStorage.login = 'punchagan';
-    chrome.tabs.create({url: 'options.html'}); // after install, show options page. 
+    localStorage.repos = undefined;
+    chrome.tabs.create({url: 'options.html'}); // after install, show options page.
     }
 
 // Listen to messages from the content script

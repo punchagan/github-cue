@@ -20,8 +20,6 @@ var random_nums = function(limit, num) {
 // Fetches all the watched repos of the user and triggers off everything else...
 var run = function() {
 
-    insertStubHtml();
-
     // Workaround the lack of access to localStorage ...
     chrome.extension.sendRequest({message: "username"}, function(response) {
 
@@ -40,8 +38,9 @@ var insertStubHtml = function(){
         heading = document.createElement("h2"),
         top_bar = document.createElement("div"),
         bottom_bar = top_bar.cloneNode(),
-        repo_list = document.createElement("ul");
-        messages = document.createElement("span");
+        repo_list = document.createElement("ul"),
+        messages = document.createElement("span"),
+        refresh = document.createElement("a");
 
     messages.id = "interesting_messages";
     // FIXME: CSS fixes
@@ -51,6 +50,11 @@ var insertStubHtml = function(){
     bottom_bar.className = "bottom-bar";
     heading.textContent = "Interesting Repositories ";
     top_bar.className = "top-bar";
+    refresh.textContent = 'Refresh';
+    refresh.href = "#";
+    refresh.setAttribute('style', 'float:right; position:relative; margin: 1em; top: 0.5em;');
+    refresh.onclick = function(e) { run() };
+    top_bar.appendChild(refresh);
     top_bar.appendChild(heading);
     interesting.id = "interest_repos";
     interesting.appendChild(top_bar);
@@ -59,6 +63,12 @@ var insertStubHtml = function(){
     interesting.appendChild(bottom_bar);
 
     yrepo.insertAdjacentElement("beforeBegin", interesting);
+
+    if (localStorage.repos) {
+        showSuggestions(JSON.parse(localStorage.repos));
+    } else {
+        run();
+    };
 
 }
 
@@ -164,35 +174,46 @@ var selectInterestingRepos = function(data, repos, call) {
         var repo = data.repositories[i];
         if (repos.indexOf(repo) == -1) { repos.push(repo) };
     };
-    if (call) { showSuggestions(repos); };
+    if (call) { showSuggestions(selectN(repos, 15)) };
 }
 
+var selectN = function(sample, count) {
+    var indices = random_nums(15, sample.length),
+        select = new Array();
+
+    for (i in indices) {
+        select.push(sample[indices[i]]);
+    };
+
+    return select;
+}
 
 var showSuggestions = function(repos) {
     console.log('Displaying suggestions...');
-    var indices = random_nums(15, repos.length),
-        node = document.getElementById("interest_repos"),
-        messages = document.getElementById("interesting_messages")
-        repo_list = node.getElementsByClassName("repo_list")[0];
+    localStorage.repos = JSON.stringify(repos);
+    var node = document.getElementById("interest_repos"),
+        messages = document.getElementById("interesting_messages"),
+        r_list = node.getElementsByClassName("repo_list")[0],
+        repo_list = r_list.cloneNode(),
+        old_count = node.getElementsByTagName("em")[0];
+        count = document.createElement("em");
 
-    if (indices.length == 0) {
-        setMessage("Sorry! Couldn't find suggestions for you.");
-        return;
-    }
-    var count = document.createElement("em");
-    count.textContent = "(" + indices.length + ")";
+    if (old_count) { old_count.parentNode.removeChild(old_count); }
+
+    count.textContent = "(" + repos.length + ")";
     node.getElementsByTagName("h2")[0].appendChild(count);
+    node.replaceChild(repo_list, r_list);
 
     messages.hidden = true;
     messages.textContent = '';
-    for (i in indices) {
+    for (i in repos) {
         var content = document.createElement("li"),
             link = document.createElement("a"),
             icon = document.createElement("span"),
             owner = document.createElement("span"),
             name = document.createElement("span"),
             arrow = document.createElement("span"),
-            repo = repos[indices[i]];
+            repo = repos[i];
 
         if (repo.fork) {
             icon.className = "mini-icon mini-icon-repo-forked";
@@ -218,4 +239,4 @@ var showSuggestions = function(repos) {
 
 };
 
-run();
+insertStubHtml();
