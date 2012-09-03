@@ -25,6 +25,9 @@ var run = function() {
 
         // Globally available
         github = new Github({username: '', password: ''});
+        var messages = document.getElementById("interesting_messages");
+        messages.textContent = "Fetching interesting repositories. Please Wait...";
+        messages.hidden = false;
         var gh_user = github.getUser(),
             watch = gh_user.userWatched(response.username, processDataAndDisplay);
         console.log('Fetching watched repos');
@@ -43,7 +46,6 @@ var insertStubHtml = function(){
         refresh = document.createElement("a");
 
     messages.id = "interesting_messages";
-    // FIXME: CSS fixes
     messages.textContent = "Fetching interesting repositories. Please Wait...";
     messages.setAttribute('style', 'margin: 1em; top: 0.5em; position: relative');
     repo_list.className = "repo_list";
