@@ -1,6 +1,7 @@
 {
   "name": "GitHub Cue",
-  "version": "1.0",
+  "version": "1.1",
+  "manifest_version": 2,
   "description": "Recommendations on GitHub.",
   "permissions": [
     "https://github.com/*",
@@ -19,5 +20,8 @@
       "run_at": "document_end"
     }
   ],
-  "background_page" : "gitcue.html"
+  "background": {
+    "scripts": ["gitcue.js"],
+    "persistent": false
+  }
 }

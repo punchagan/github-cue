@@ -21,7 +21,7 @@ var random_nums = function(limit, num) {
 var run = function() {
 
     // Workaround the lack of access to localStorage ...
-    chrome.extension.sendRequest({message: "username"}, function(response) {
+    chrome.extension.sendMessage({message: "username"}, function(response) {
 
         // Globally available
         github = new Github({username: '', password: ''});
@@ -38,9 +38,10 @@ var run = function() {
 var insertStubHtml = function(){
     var yrepo = document.getElementById("your_repos"),
         interesting = yrepo.cloneNode(),
-        heading = document.createElement("h2"),
+        heading = document.createElement("h3"),
         top_bar = document.createElement("div"),
         bottom_bar = top_bar.cloneNode(),
+        repo_container = document.createElement("div"),
         repo_list = document.createElement("ul"),
         messages = document.createElement("span"),
         refresh = document.createElement("a");
@@ -48,19 +49,22 @@ var insertStubHtml = function(){
     messages.id = "interesting_messages";
     messages.textContent = "Fetching interesting repositories. Please Wait...";
     messages.setAttribute('style', 'margin: 1em; top: 0.5em; position: relative');
-    repo_list.className = "repo_list";
+    repo_container.className = "box-body";
+    repo_list.className = "repo-list";
     bottom_bar.className = "bottom-bar";
     heading.textContent = "Interesting Repositories ";
-    top_bar.className = "top-bar";
+    heading.className = "box-title";
+    top_bar.className = "box-header";
     refresh.textContent = 'Refresh';
     refresh.href = "#";
     refresh.setAttribute('style', 'float:right; position:relative; margin: 1em; top: 0.5em;');
     refresh.onclick = function(e) { run() };
     top_bar.appendChild(refresh);
     top_bar.appendChild(heading);
+    repo_container.appendChild(repo_list);
     interesting.id = "interest_repos";
     interesting.appendChild(top_bar);
-    interesting.appendChild(repo_list);
+    interesting.appendChild(repo_container);
     interesting.appendChild(messages);
     interesting.appendChild(bottom_bar);
 
@@ -195,7 +199,7 @@ var showSuggestions = function(repos) {
     localStorage.repos = JSON.stringify(repos);
     var node = document.getElementById("interest_repos"),
         messages = document.getElementById("interesting_messages"),
-        r_list = node.getElementsByClassName("repo_list")[0],
+        r_list = node.getElementsByClassName("repo-list")[0],
         repo_list = r_list.cloneNode(),
         old_count = node.getElementsByTagName("em")[0];
         count = document.createElement("em");
@@ -203,34 +207,45 @@ var showSuggestions = function(repos) {
     if (old_count) { old_count.parentNode.removeChild(old_count); }
 
     count.textContent = "(" + repos.length + ")";
-    node.getElementsByTagName("h2")[0].appendChild(count);
-    node.replaceChild(repo_list, r_list);
+    node.getElementsByTagName("h3")[0].appendChild(count);
+    node.getElementsByClassName('box-body')[0].replaceChild(repo_list, r_list);
 
     messages.hidden = true;
     messages.textContent = '';
+
     for (i in repos) {
         var content = document.createElement("li"),
             link = document.createElement("a"),
             icon = document.createElement("span"),
+            owner_and_repo = document.createElement("span"),
             owner = document.createElement("span"),
             name = document.createElement("span"),
-            arrow = document.createElement("span"),
+            stars = document.createElement("span"),
+            stars_icon = document.createElement("span"),
             repo = repos[i];
 
         if (repo.fork) {
-            icon.className = "mini-icon mini-icon-repo-forked";
+            icon.className = "repo-icon octicon octicon-repo-forked";
         } else {
-            icon.className = "mini-icon mini-icon-public-repo";
+            icon.className = "repo-icon octicon octicon-repo";
         }
         link.appendChild(icon);
-        owner.className = "owner";
+        link.appendChild(owner_and_repo);
+        owner_and_repo.className = "repo-and-owner css-truncate-target";
+        owner.className = "owner css-truncate-target";
+        owner.title = repo.owner;
         owner.textContent = repo.owner+"/";
-        link.appendChild(owner);
-        name.className = "repo";
+        owner_and_repo.appendChild(owner);
+        name.className = "repo css-truncate-target";
+        name.title = repo.name;
         name.textContent = repo.name;
-        link.appendChild(name);
-        arrow.className = "arrow";
-        link.appendChild(arrow);
+        owner_and_repo.appendChild(name);
+        stars.className = 'stars';
+        link.appendChild(stars);
+        stars.textContent = ' ' + (repo.followers || 0) + ' ';
+        stars.appendChild(stars_icon);
+        stars_icon.className = "octicon octicon-star";
+        link.className = 'repo-list-item css-truncate';
         link.href = repo.url || "/"+repo.owner+"/"+repo.name;
         link.title = repo.description;
         content.className = "public source";

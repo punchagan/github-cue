@@ -24,14 +24,6 @@ An option page
     font-size: 100%
   }
 </style>
-<script>
-    onload = function() {
-        options.login.value = localStorage.login; // The user's login.
-        options.login.onchange = function() {
-            localStorage.login = options.login.value;
-        };
-    };
-</script>
 <h1>
   <img src="github-cue.png" alt="GitHub Cue">
   GitHub Cue
@@ -42,3 +34,4 @@ An option page
 </form>
 Save your username and visit the <a href="https://github.com">GitHub
 Dashboard</a> to view your recommendations.
+<script src="options.js"></script>
